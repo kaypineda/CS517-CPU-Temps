@@ -1,7 +1,9 @@
 #! /usr/bin/env python3
 
 """
-From Prof Kennedy: 
+Created by Prof Kennedy
+Link: https://git.cs.odu.edu/tkennedy/cs417-lecture-examples/tree/master/SemesterProject-CPU-Temps/
+
 This module is a collection of input helpers for the CPU Temperatures Project.
 All code may be used freely in the semester project, iff it is imported using
 ``import parse_temps`` or ``from parse_temps import {...}`` where ``{...}``
