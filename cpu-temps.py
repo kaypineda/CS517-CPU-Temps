@@ -34,11 +34,17 @@ def print_all_cores(times, core0, core1, core2, core3):
         print(f'{times[i]:<7} || {core0[i]:<5} | {core1[i]:<5} | {core2[i]:<5} | {core3[i]:<5} |')
 
 
-def piecewise_linear_interpolation(time, data):
-    print("Not yet implemented")
+def piecewise_linear_interpolation(times, data):
+    # print("Not yet implemented")
+    pli = []
     # take the slope between two points
-    ## for eve i and i + 1 in data
-    ## (data[i + 1] - data[i]) / (time[i + 1] - time[i])
+    for i,t in enumerate(times):
+        if i == len(times) - 1:
+            break
+        m = (data[i+1] - data[i]) / times[i+1] - times[i]
+        pli.append(m)
+
+    return pli
 
 
 def least_squares_approximation(time, data):
@@ -50,6 +56,8 @@ if __name__ == "__main__":
 
     times, core0, core1, core2, core3 = read_file(args.input_file)
     print_all_cores(times, core0, core1, core2, core3)
+
+    core0_PLI = piecewise_linear_interpolation(times, core0)
 
 
 
