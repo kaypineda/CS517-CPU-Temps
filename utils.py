@@ -42,7 +42,8 @@ def print_single_core(times, core):
 
 
 def create_output_file(date, core, times, data, type):
-    output_file = date + "-" + type + "-" + core + ".txt"
+    output_file = "output/" + date + "-" + type + "-" + core + ".txt"
+    output = open(output_file, "w")
 
     for i,t in enumerate(times):
         if i == len(times) - 1:
@@ -51,4 +52,7 @@ def create_output_file(date, core, times, data, type):
         y_int, m = data[i]
         data_rounded = '{:.4f}'.format(round(m, 4))
 
-        print(f'{times[i]:<7} <= x < {times[i+1]:<7}; y_{i:<5} = {y_int:<5} + {data_rounded:>7}x; {type}')
+        output.write(f'{times[i]:<7} <= x < {times[i+1]:<7}; y_{i:<5} = {y_int:<5} + {data_rounded:>7}x; {type} \n')
+        # print(f'{times[i]:<6} <= x < {times[i + 1]:>6}; y_{i:<5} = {y_int:<5} + {data_rounded:>7}x; {type}')
+
+    output.close()
