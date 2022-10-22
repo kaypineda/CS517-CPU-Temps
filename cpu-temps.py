@@ -15,9 +15,7 @@ def piecewise_linear_interpolation(times, data):
     for i,t in enumerate(times):
         if i == len(times) - 1:
             break
-        # print(data[i+1], data[i], times[i+1], times[i])
         m = (data[i+1] - data[i]) / (times[i+1] - times[i])
-        # print(m)
         pli.append([data[i], m])
 
     return pli
