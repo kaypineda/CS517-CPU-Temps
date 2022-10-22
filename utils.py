@@ -52,7 +52,7 @@ def create_output_file(date, core, times, data, type):
         y_int, m = data[i]
         data_rounded = '{:.4f}'.format(round(m, 4))
 
-        output.write(f'{times[i]:<7} <= x < {times[i+1]:<7}; y_{i:<5} = {y_int:<5} + {data_rounded:>7}x; {type} \n')
+        output.write(f'{times[i]:<7} <= x < {times[i+1]:>7}; y_{i:<5} = {y_int:>5} + {data_rounded:>7}x; {type} \n')
         # print(f'{times[i]:<6} <= x < {times[i + 1]:>6}; y_{i:<5} = {y_int:<5} + {data_rounded:>7}x; {type}')
 
     output.close()
