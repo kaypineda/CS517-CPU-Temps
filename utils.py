@@ -41,6 +41,15 @@ def print_single_core(times, core):
         print(f'{times[i]:<7} || {core[i]:<5} |')
 
 
-def create_output_file(times, data, type):
-    print("Not yet implemented")
+def create_output_file(date, core, times, data, type):
+    output_file = date + "-" + type + "-" + core + ".txt"
+    print(output_file)
 
+    for i,t in enumerate(times):
+        if i == len(times) - 1:
+            break
+
+        y_int, m = data[i]
+        data_rounded = '{:.4f}'.format(round(m, 4))
+
+        print(f'{times[i]:<7} <= x < {times[i+1]:<7}; y_{i:<5} = {y_int:<5} + {data_rounded:>7}x; {type}')
