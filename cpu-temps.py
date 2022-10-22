@@ -29,7 +29,6 @@ def least_squares_approximation(time, data):
 
 if __name__ == "__main__":
     date = utils.get_date(args.input_file)
-    # print(date)
 
     times, core0, core1, core2, core3 = utils.read_file(args.input_file)
     # utils.print_all_cores(times, core0, core1, core2, core3)

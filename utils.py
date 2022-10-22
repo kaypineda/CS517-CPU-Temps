@@ -43,7 +43,6 @@ def print_single_core(times, core):
 
 def create_output_file(date, core, times, data, type):
     output_file = date + "-" + type + "-" + core + ".txt"
-    print(output_file)
 
     for i,t in enumerate(times):
         if i == len(times) - 1:
