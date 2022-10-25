@@ -10,6 +10,15 @@ args = parser.parse_args()
 
 
 def piecewise_linear_interpolation(times, data):
+    """
+    Find piecewise linear interpolation for a core
+    :param times: array of times in seconds
+    :param data:  cpu temp data from one core
+
+    :return: an array of tuples containing the slope and y-intercept
+             for each linear interpolation
+    """
+
     pli = []
     # take the slope between two points
     for i,t in enumerate(times):
@@ -31,9 +40,16 @@ if __name__ == "__main__":
     times, core0, core1, core2, core3 = utils.read_file(args.input_file)
     # utils.print_all_cores(times, core0, core1, core2, core3)
 
+    # TODO: simplify this
     core0_PLI = piecewise_linear_interpolation(times, core0)
+    core1_PLI = piecewise_linear_interpolation(times, core1)
+    core2_PLI = piecewise_linear_interpolation(times, core2)
+    core3_PLI = piecewise_linear_interpolation(times, core3)
 
-    utils.create_output_file(date, "core0", times, core0_PLI, "interpolation")
+    utils.write_output_file(date, "core0", times, core0_PLI)
+    utils.write_output_file(date, "core1", times, core1_PLI)
+    utils.write_output_file(date, "core2", times, core2_PLI)
+    utils.write_output_file(date, "core3", times, core3_PLI)
 
 
 
