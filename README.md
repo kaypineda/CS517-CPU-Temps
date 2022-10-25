@@ -3,6 +3,11 @@ CS 517 Semester Project, Fall 2022
 
 # Requirements
 * Python 3.10
+* Dependencies: python-dateutil
+  * Install using: 
+```
+pip install -r requirements.txt
+```
 
 # Usage
 ```
