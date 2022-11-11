@@ -31,7 +31,36 @@ def piecewise_linear_interpolation(times, data):
 
 
 def least_squares_approximation(time, data):
-    print("Not yet implemented")
+    XT = transpose(time)
+    X = []
+
+    for i in len(time):
+        X[i][0] = 1
+        X[i][1] = time[i]
+
+    XTX = multiply_matrix(XT, X)
+    XTY = multiply_matrix(XT, data)
+
+
+def transpose(original):
+    transposed = [[]]
+
+    for i in len(original[0]):
+        for j in len(original):
+            transposed[i][j] = original[j][i]
+
+    return transposed
+
+
+def multiply_matrix(lhs, rhs):
+    result = []
+
+    for i in len(result):
+        for j in len(result[0]):
+            for k in len(lhs[0]):
+                result[i][j] += lhs[i][k] * rhs[k][j]
+
+    return result
 
 
 if __name__ == "__main__":
