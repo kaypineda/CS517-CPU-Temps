@@ -9,7 +9,7 @@ def read_file(input_file):
     Read data from an input file and store, code adapted from Prof Kennedy's parse_temps example
     :param input_file: the input file
 
-    :return: array containing the times and an array containing cpu temsps for each core
+    :return: array containing the times and an array containing cpu temps for each core
     '''
 
     temp_file = open(input_file, 'r')
