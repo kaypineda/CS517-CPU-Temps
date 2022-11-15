@@ -2,17 +2,19 @@
 Kayla Pineda   UIN: 01168338 '''
 
 import argparse
-import utils
+import io
+import matrix
+# import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_file', help='input data file')
 args = parser.parse_args()
 
 
-def piecewise_linear_interpolation(times, data):
+def piecewise_linear_interpolation(time, data):
     """
     Find piecewise linear interpolation for a core
-    :param times: array of times in seconds
+    :param time: array of times in seconds
     :param data:  cpu temp data from one core
 
     :return: an array of tuples containing the slope and y-intercept
@@ -21,7 +23,7 @@ def piecewise_linear_interpolation(times, data):
 
     pli = []
     # take the slope between two points
-    for i,t in enumerate(times):
+    for i,t in enumerate(time):
         if i == len(times) - 1:
             break
         m = (data[i+1] - data[i]) / (times[i+1] - times[i])
@@ -31,46 +33,29 @@ def piecewise_linear_interpolation(times, data):
 
 
 def least_squares_approximation(time, data):
-    XT = transpose(time)
-    X = []
+    X = [[]]
 
-    for i in len(time):
+    for i,t in enumerate(time):
         X[i][0] = 1
         X[i][1] = time[i]
 
-    XTX = multiply_matrix(XT, X)
-    XTY = multiply_matrix(XT, data)
+    print(X)
 
+    XT = matrix.transpose(X)
+    print(XT)
 
-def transpose(original):
-    transposed = [[]]
-
-    for i in len(original[0]):
-        for j in len(original):
-            transposed[i][j] = original[j][i]
-
-    return transposed
-
-
-def multiply_matrix(lhs, rhs):
-    result = []
-
-    for i in len(result):
-        for j in len(result[0]):
-            for k in len(lhs[0]):
-                result[i][j] += lhs[i][k] * rhs[k][j]
-
-    return result
+    XTX = matrix.multiply(XT, X)
+    XTY = matrix.multiply(XT, data)
 
 
 if __name__ == "__main__":
-    date = utils.get_date(args.input_file)
+    date = io.get_date(args.input_file)
 
-    times, core0, core1, core2, core3 = utils.read_file(args.input_file)
+    times, core0, core1, core2, core3 = io.read_file(args.input_file)
     # utils.print_all_cores(times, core0, core1, core2, core3)
 
     # TODO: simplify this
-    core0_PLI = piecewise_linear_interpolation(times, core0)
+    '''core0_PLI = piecewise_linear_interpolation(times, core0)
     core1_PLI = piecewise_linear_interpolation(times, core1)
     core2_PLI = piecewise_linear_interpolation(times, core2)
     core3_PLI = piecewise_linear_interpolation(times, core3)
@@ -78,7 +63,9 @@ if __name__ == "__main__":
     utils.write_output_file(date, "core0", times, core0_PLI)
     utils.write_output_file(date, "core1", times, core1_PLI)
     utils.write_output_file(date, "core2", times, core2_PLI)
-    utils.write_output_file(date, "core3", times, core3_PLI)
+    utils.write_output_file(date, "core3", times, core3_PLI)'''
+
+    least_squares_approximation(times, core0)
 
 
 
