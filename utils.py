@@ -15,20 +15,16 @@ def read_file(input_file):
     temp_file = open(input_file, 'r')
 
     times = []
-    core0 = []
-    core1 = []
-    core2 = []
-    core3 = []
-    for time, core_data in pt.parse_raw_temps(temp_file):
+    cores = [[] for _ in range(0, 4)]
+
+    for time, raw_core_data in pt.parse_raw_temps(temp_file):
         times.append(time)
-        core0.append(core_data[0])
-        core1.append(core_data[1])
-        core2.append(core_data[2])
-        core3.append(core_data[3])
+        for i, reading in enumerate(raw_core_data):
+            cores[i].append(reading)
 
     temp_file.close()
 
-    return times, core0, core1, core2, core3
+    return times, cores
 
 
 def get_date(input_file):
