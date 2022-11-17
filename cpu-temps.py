@@ -2,8 +2,8 @@
 Kayla Pineda   UIN: 01168338 '''
 
 import argparse
-import io
-import matrix
+import utils
+# import matrix
 # import numpy as np
 
 parser = argparse.ArgumentParser()
@@ -33,39 +33,37 @@ def piecewise_linear_interpolation(time, data):
 
 
 def least_squares_approximation(time, data):
-    X = [[]]
+    n = len(time)
+    S_x, S_x2, S_f, S_xf = 0, 0, 0, 0
 
     for i,t in enumerate(time):
-        X[i][0] = 1
-        X[i][1] = time[i]
+        S_x += time[i]
+        S_x2 += time[i] ** 2
+        S_f += data[i]
+        S_xf += time[i] * data[i]
 
-    print(X)
+    c_0 = ((S_x2 * S_f) - (S_x * S_xf)) / ((n * S_x2) - S_x ** 2)
+    c_1 = ((n * S_xf) - (S_x * S_f)) / ((n * S_x2) - S_x ** 2)
 
-    XT = matrix.transpose(X)
-    print(XT)
-
-    XTX = matrix.multiply(XT, X)
-    XTY = matrix.multiply(XT, data)
+    return c_0, c_1
 
 
 if __name__ == "__main__":
-    date = io.get_date(args.input_file)
+    date = utils.get_date(args.input_file)
 
-    times, core0, core1, core2, core3 = io.read_file(args.input_file)
+    times, core0, core1, core2, core3 = utils.read_file(args.input_file)
     # utils.print_all_cores(times, core0, core1, core2, core3)
 
     # TODO: simplify this
-    '''core0_PLI = piecewise_linear_interpolation(times, core0)
-    core1_PLI = piecewise_linear_interpolation(times, core1)
+    '''core1_PLI = piecewise_linear_interpolation(times, core1)
     core2_PLI = piecewise_linear_interpolation(times, core2)
     core3_PLI = piecewise_linear_interpolation(times, core3)
 
-    utils.write_output_file(date, "core0", times, core0_PLI)
     utils.write_output_file(date, "core1", times, core1_PLI)
     utils.write_output_file(date, "core2", times, core2_PLI)
     utils.write_output_file(date, "core3", times, core3_PLI)'''
 
-    least_squares_approximation(times, core0)
-
-
+    core0_PLI = piecewise_linear_interpolation(times, core0)
+    core0_LSA = least_squares_approximation(times, core0)
+    utils.write_output_file(date, "core0", times, core0_LSA, core0_PLI)
 
