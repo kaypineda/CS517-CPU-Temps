@@ -14,6 +14,7 @@ args = parser.parse_args()
 def piecewise_linear_interpolation(time, data):
     """
     Find piecewise linear interpolation for a core
+
     :param time: array of times in seconds
     :param data:  cpu temp data from one core
 
@@ -33,6 +34,14 @@ def piecewise_linear_interpolation(time, data):
 
 
 def least_squares_approximation(time, data):
+    """
+    Find least squares approximation for data.
+    Only care about the linear case, so we can simplify the process.
+
+    :param time: array of times (s)
+    :param data: cpu temp data for a core
+    :return:
+    """
     n = len(time)
     S_x, S_x2, S_f, S_xf = 0, 0, 0, 0
 
@@ -51,7 +60,7 @@ def least_squares_approximation(time, data):
 if __name__ == "__main__":
     date = utils.get_date(args.input_file)
 
-    times, core0, core1, core2, core3 = utils.read_file(args.input_file)
+    times, cores = utils.read_file(args.input_file)
     # utils.print_all_cores(times, core0, core1, core2, core3)
 
     # TODO: simplify this
@@ -63,7 +72,7 @@ if __name__ == "__main__":
     utils.write_output_file(date, "core2", times, core2_PLI)
     utils.write_output_file(date, "core3", times, core3_PLI)'''
 
-    core0_PLI = piecewise_linear_interpolation(times, core0)
-    core0_LSA = least_squares_approximation(times, core0)
+    core0_PLI = piecewise_linear_interpolation(times, cores[0])
+    core0_LSA = least_squares_approximation(times, cores[0])
     utils.write_output_file(date, "core0", times, core0_LSA, core0_PLI)
 
