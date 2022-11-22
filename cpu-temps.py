@@ -14,7 +14,7 @@ def piecewise_linear_interpolation(time, data):
     Find piecewise linear interpolation for a core
 
     :param time: array of times in seconds
-    :param data:  cpu temp data from one core
+    :param data: cpu temp data from one core
 
     :return: an array of tuples containing the slope and y-intercept
              for each linear interpolation
@@ -33,13 +33,14 @@ def piecewise_linear_interpolation(time, data):
 
 def least_squares_approximation(time, data):
     """
-    Find least squares approximation for data.
-    Only care about the linear case, so we can simplify the process.
+    Find least squares approximation for data, uses linear case only
 
-    :param time: array of times (s)
+    :param time: array of times in seconds
     :param data: cpu temp data for a core
-    :return:
+
+    :return: Least squares approximation for a core
     """
+
     n = len(time)
     S_x, S_x2, S_f, S_xf = 0, 0, 0, 0
 
@@ -67,5 +68,4 @@ if __name__ == "__main__":
         cores_LSA.append(least_squares_approximation(times, core))
 
     for i, core in enumerate(cores):
-        utils.write_output_file(date, i, times, cores_LSA[i], cores_PLI[i])
-
+        utils.write_output_file(date, i, times, cores_PLI[i], cores_LSA[i])
