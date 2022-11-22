@@ -1,6 +1,12 @@
 # CS517-CPU-Temps
 CS 517 Semester Project, Fall 2022
 
+Given a list of CPU temperatures, this program will find the piecewise linear interpolation
+and the linear least squares approximation of the data. The slope for the least squares
+approximation is outputted in scientific notation.
+
+Link to GitHub: https://github.com/kaypineda/CS517-CPU-Temps
+
 # Requirements
 * Python 3.10
 * Dependencies: python-dateutil
@@ -21,6 +27,8 @@ python cpu-temps.py input-file
 # Sample Execution and Output
 The program should produce an output text file that looks similar to:
 ```
+     0 <= x <   35610; y_i      =     77.14594 + -1.18823e-04x; least squares 
+--------------------------------------------------------------------------------     
      0 <= x <      30; y_0      =      61.0000 +   0.6333x; interpolation
     30 <= x <      60; y_1      =      98.0000 +  -0.6000x; interpolation
     60 <= x <      90; y_2      =      20.0000 +   0.7000x; interpolation
