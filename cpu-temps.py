@@ -1,10 +1,8 @@
-''' CS 517 Semester Project: CPU Temps
-Kayla Pineda   UIN: 01168338 '''
+""" CS 517 Semester Project: CPU Temps
+Kayla Pineda   UIN: 01168338 """
 
 import argparse
 import utils
-# import matrix
-# import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_file', help='input data file')
@@ -61,18 +59,13 @@ if __name__ == "__main__":
     date = utils.get_date(args.input_file)
 
     times, cores = utils.read_file(args.input_file)
-    # utils.print_all_cores(times, core0, core1, core2, core3)
 
-    # TODO: simplify this
-    '''core1_PLI = piecewise_linear_interpolation(times, core1)
-    core2_PLI = piecewise_linear_interpolation(times, core2)
-    core3_PLI = piecewise_linear_interpolation(times, core3)
+    cores_PLI = []
+    cores_LSA = []
+    for i,core in enumerate(cores):
+        cores_PLI.append(piecewise_linear_interpolation(times, core))
+        cores_LSA.append(least_squares_approximation(times, core))
 
-    utils.write_output_file(date, "core1", times, core1_PLI)
-    utils.write_output_file(date, "core2", times, core2_PLI)
-    utils.write_output_file(date, "core3", times, core3_PLI)'''
-
-    core0_PLI = piecewise_linear_interpolation(times, cores[0])
-    core0_LSA = least_squares_approximation(times, cores[0])
-    utils.write_output_file(date, "core0", times, core0_LSA, core0_PLI)
+    for i, core in enumerate(cores):
+        utils.write_output_file(date, i, times, cores_LSA[i], cores_PLI[i])
 
