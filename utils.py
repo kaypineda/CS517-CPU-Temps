@@ -40,22 +40,7 @@ def get_date(input_file):
     return date
 
 
-def print_all_cores(times, core0, core1, core2, core3):
-    '''
-    Print the data of all cores
-    :param times: times in seconds
-    :param core0: cpu temps of core 0
-    :param core1: cpu temps of core 1
-    :param core2: cpu temps of core 2
-    :param core3: cpu temps of core 3
-
-    :return: prints all data
-    '''
-    for i,t in enumerate(times):
-        print(f'{times[i]:<7} || {core0[i]:<5} | {core1[i]:<5} | {core2[i]:<5} | {core3[i]:<5} |')
-
-
-def print_single_core(times, core):
+def print_core(times, core):
     '''
     Prints data of single core
     :param times: times in seconds
@@ -67,18 +52,18 @@ def print_single_core(times, core):
         print(f'{times[i]:<7} || {core[i]:<5} |')
 
 
-def write_output_file(date, core, times, data_LSA, data_PLI):
+def write_output_file(date, core_num, times, data_LSA, data_PLI):
     """
     Creates output file
     :param date: the date the data was acquired
-    :param core: name of the core
+    :param core_num: name of the core
     :param times: times in seconds
     :param data_LSA: least squares approximation of a core
     :param data_PLI: piecewise linear interpolation of a core
 
     :return: output file listing piecewise linear interpolation data of a core
     """
-    output_file = "output/" + date + "-" + core + ".txt"
+    output_file = "output/" + date + "-core" + str(core_num) + ".txt"
     output = open(output_file, "w")
 
     output.write(f'{times[0]:<7} <= x < {times[len(times) - 1]:>7}; y_0 = {data_LSA[0]:>5} + {data_LSA[1]:>7}x; '
@@ -89,9 +74,9 @@ def write_output_file(date, core, times, data_LSA, data_PLI):
             break
 
         y_int, m = data_PLI[i]
-        data_rounded = '{:.4f}'.format(round(m, 4))
+        PLI_rounded = '{:.4f}'.format(round(m, 4))
 
-        output.write(f'{times[i]:<7} <= x < {times[i+1]:>7}; y_{i:<5} = {y_int:>5} + {data_rounded:>7}x; '
+        output.write(f'{times[i]:<7} <= x < {times[i+1]:>7}; y_{i:<5} = {y_int:>5} + {PLI_rounded:>7}x; '
                      f'interpolation \n')
 
     output.close()
